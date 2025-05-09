@@ -46,3 +46,25 @@ Vagrant are easier to learn than docker.
 - Git Commands - https://github.com/LondonAppDev/build-a-backend-api-python-drf-beginner-cheat-sheet/blob/master/README.md
 - .gitignore file - https://gist.github.com/LondonAppDev/dd166e24f69db4404102161df02a63ff
 - LICENSE - https://choosealicense.com/licenses/mit/
+
+## Creating a Development Sever
+
+Vagrant allows you define the type of server you need for the project as Vagrant file.
+
+- To create a Vagrant file, command - vagrant init ubuntu/bionic64, here ubuntu/bionic64 is the image container of OS - ubuntu
+
+- It gives a template of vagrant file with ubuntu as VM server
+- Vagrant file Example - https://gist.github.com/LondonAppDev/199eef145a21587ea866b69d40d28682
+- Vagrant up - Download the base image that we have specified in our Vagrant files and it will use Virtual Box to create a new VM and then run our provisioning scripts when it starts the machine
+- After this we can connect to Vagrant Server using Vagrant SSH command.
+- Command - vagrant ssh
+
+## Python and Django Tutorial
+
+To create a new environment we can write - python -m venv {file-path}/{environment-name}
+If you want to use Virtual Environments then you need to activate it and to stop it you need de activate it
+
+Commands
+
+- source {path-to-activate-file-of-the-environment}, eg - source /env/bin/activate
+- Virtual Environment Cheat Sheet - https://python-guide.readthedocs.io/en/latest/dev/virtualenvs/
