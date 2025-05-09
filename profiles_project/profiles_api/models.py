@@ -1,3 +1,32 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 
 # Create your models here.
+
+class UserProfile(AbstractBaseUser, PermissionsMixin):
+    """Database Model for users in the system"""
+    email = models.EmailField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserProfileManager()
+
+    # we need to specify the user field to the unique field of our preference
+    # This is because we are overriding the default USERNAME Field which is normally called user name
+    # Because we need to use email and password instead of username and password
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name'] # Additional Required Fields apart from email and password
+
+    def get_full_user_name(self):
+        """Retrieve User Name"""
+        return self.name
+    
+    def get_short_name(self):
+        """Retrieve Short Name of User"""
+        return self.name.lower()
+    
+    # convert a user profile object to a string in python
+    def __str__(self):
+        return self.email

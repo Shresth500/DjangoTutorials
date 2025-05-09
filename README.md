@@ -103,3 +103,55 @@ INSTALLED_APPS = [
 
 Now to Run our django we need to write the command -
 python manage.py runserver port-number
+
+### Django Models
+
+In Django we describe data we need for our application.
+Django then uses these models to setup and configure our database to store our data effectively
+Django handles the relationship between our models and database
+
+Documentation for Models - https://docs.djangoproject.com/en/1.11/topics/db/models/
+
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
+
+These are use to override AbstractBaseUser class which is an inbuilt model class in django
+
+Models.py
+
+```
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
+
+# Create your models here.
+
+class UserProfile(AbstractBaseUser, PermissionsMixin):
+    """Database Model for users in the system"""
+    email = models.EmailField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserProfileManager()
+
+    # we need to specify the user field to the unique field of our preference
+    # This is because we are overriding the default USERNAME Field which is normally called user name
+    # Because we need to use email and password instead of username and password
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name'] # Additional Required Fields apart from email and password
+
+    def get_full_user_name(self):
+        """Retrieve User Name"""
+        return self.name
+
+    def get_short_name(self):
+        """Retrieve Short Name of User"""
+        return self.name.lower()
+
+    # convert a user profile object to a string in python
+    def __str__(self):
+        return self.email
+
+```
