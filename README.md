@@ -126,8 +126,46 @@ Models.py
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import BaseUserManager
+
 
 # Create your models here.
+
+class UserProfileManager(BaseUserManager):
+    """Managers for User Profile"""
+    """Can Manipulate objects and return that object"""
+
+    def create_user(self, name,email, password=None):
+        if not email:
+            raise ValueError('User Must have an email address')
+
+        if not name:
+            raise ValueError("User must enetr a user name")
+
+        if not password:
+            raise ValueError('User must enter a password')
+
+        email = self.normalize_email(email=email)
+        user = self.model(email=email,name=name)
+
+        user.set_password(password)
+        user.save(using = self._db)
+
+        return user
+
+    def create_superuser(self,name,email,password=None):
+        """Creating super user"""
+
+        user = self.create_user(name=name,email=email,password=password)
+
+        user.is_superuser = True
+        user.is_staff = True
+
+        user.save(using = self._db)
+        return user
+
+
+
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Database Model for users in the system"""
@@ -155,5 +193,26 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     # convert a user profile object to a string in python
     def __str__(self):
         return self.email
+```
 
+Then you need to add the above UserProfile in the settings.py so that our project should take custom user model instead of in-built user model
+settings.py
+
+```
+AUTH_USER_MODEL = 'profiles_api.UserProfile'
+```
+
+Now we need add new migrations if we are doing any changes in our models
+Migration file contains the steps required to modify our database to match our updated models
+
+To add new migrations, cli command is
+
+```
+python manage.py makemigrations
+```
+
+To run all the migrations, cli command is
+
+```
+python manage.py migrate
 ```
