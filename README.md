@@ -89,17 +89,19 @@ To Create a new app
 
 Then enable our app & dependencies in the project's settings.py file under INSTALLED_APPS
 
+```
 INSTALLED_APPS = [
-'django.contrib.admin',
-'django.contrib.auth',
-'django.contrib.contenttypes',
-'django.contrib.sessions',
-'django.contrib.messages',
-'django.contrib.staticfiles',
-'rest_framework', # django rest framework
-'rest_framework.authtoken', # Auth Token
-'profiles_api' # App Name
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework', # django rest framework
+    'rest_framework.authtoken', # Auth Token
+    'profiles_api' # App Name
 ]
+```
 
 Now to Run our django we need to write the command -
 python manage.py runserver port-number
