@@ -61,6 +61,8 @@ Vagrant allows you define the type of server you need for the project as Vagrant
 
 ## Python and Django Tutorial
 
+First install python from the official page
+
 To create a new environment we can write - python -m venv {file-path}/{environment-name}
 If you want to use Virtual Environments then you need to activate it and to stop it you need de activate it
 
@@ -68,3 +70,36 @@ Commands
 
 - source {path-to-activate-file-of-the-environment}, eg - source /env/bin/activate
 - Virtual Environment Cheat Sheet - https://python-guide.readthedocs.io/en/latest/dev/virtualenvs/
+
+Then make a requirements.txt file which consist all the dependencies with their versions
+To get the latest versions - https://pypi.org/ (search here the packages)
+Now add django and django rest framework with latest versions
+Then enter the command - pip install -r requirements.txt to install every dependencies
+
+### Django
+
+To create a django project write the command
+
+To Create a new project - django-admin startproject project-name
+
+To Create a new app
+
+- first navigate your terminal to your desired project
+- Then use the command python manage.py startapp app-name
+
+Then enable our app & dependencies in the project's settings.py file under INSTALLED_APPS
+
+INSTALLED_APPS = [
+'django.contrib.admin',
+'django.contrib.auth',
+'django.contrib.contenttypes',
+'django.contrib.sessions',
+'django.contrib.messages',
+'django.contrib.staticfiles',
+'rest_framework', # django rest framework
+'rest_framework.authtoken', # Auth Token
+'profiles_api' # App Name
+]
+
+Now to Run our django we need to write the command -
+python manage.py runserver port-number
